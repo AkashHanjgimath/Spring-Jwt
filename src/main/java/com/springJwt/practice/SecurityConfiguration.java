@@ -1,4 +1,4 @@
-package com.springJwt.practice.webtoken;
+package com.springJwt.practice;
 
 import com.springJwt.practice.model.MyUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
