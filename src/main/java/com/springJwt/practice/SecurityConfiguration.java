@@ -15,7 +15,7 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.DefaultSecurityFilterChain;
+import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
@@ -24,7 +24,8 @@ public class SecurityConfiguration {
     @Autowired
     private MyUserDetailService myUserDetailService;
 
-    public DefaultSecurityFilterChain securityConfiguration(HttpSecurity httpSecurity) throws Exception {
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(registry->{
@@ -51,7 +52,7 @@ public class SecurityConfiguration {
     public AuthenticationProvider authenticationProvider()
     {
         DaoAuthenticationProvider provoider=new DaoAuthenticationProvider();
-        provoider.setUserDetailsService(userDetailsService());
+        provoider.setUserDetailsService(myUserDetailService);
         provoider.setPasswordEncoder(passwordEncoder());
         return provoider;
     }

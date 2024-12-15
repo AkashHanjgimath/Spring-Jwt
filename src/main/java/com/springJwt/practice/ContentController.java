@@ -9,17 +9,18 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class ContentController {
     @Autowired
-    AuthenticationManager authenticationManager;
+   private AuthenticationManager authenticationManager;
     @Autowired
-    JwtService jwtService;
+   private JwtService jwtService;
     @Autowired
-    MyUserDetailService myUserDetailService;
+   private MyUserDetailService myUserDetailService;
 
 
     @GetMapping("/home")
@@ -37,7 +38,7 @@ public class ContentController {
         return "Welcome to USER home!";
     }
 
-    @GetMapping("/authenticate")
+    @PostMapping("/authenticate")
     public String authenticateAndGetToken(@RequestBody LoginForm loginForm)
     {
        Authentication authentication= authenticationManager
